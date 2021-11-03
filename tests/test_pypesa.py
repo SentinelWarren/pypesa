@@ -12,6 +12,14 @@ class MpesaTest(unittest.TestCase):
             'output_ConversationID',
             'output_ThirdPartyConversationID'
         }
+        self.query_output_keys = {
+            'output_ResponseCode',
+            'output_ResponseDesc',
+            'output_OriginalTransactionID',
+            'output_ResponseTransactionStatus',
+            'output_ConversationID',
+            'output_ThirdPartyConversationID'
+        }
         self.c2b_transaction_query = {
                 "input_Amount": "10", 
                 "input_Country": "TZN", 
@@ -69,34 +77,34 @@ class MpesaTest(unittest.TestCase):
     def test_customer_to_bussiness(self):
         print('Testing customer_to_bussiness Feature')
         response = self.mpesa.customer_to_bussiness(self.c2b_transaction_query)
-        response_keys = set(response.json().keys())
+        response_keys = set(response.keys())
         self.assertEqual(response_keys, self.expected_output_keys)
 
     def test_bussiness_to_customer(self):
         print('Testing bussiness_to_customer Feature')
         response = self.mpesa.bussiness_to_customer(self.b2c_transaction_query)
-        response_keys = set(response.json().keys())
+        response_keys = set(response.keys())
         self.assertEqual(response_keys, self.expected_output_keys)
         print('Finished testing bussiness_to_customer Feature')
 
     def test_bussiness_to_bussiness(self):
         print('Testing bussiness_to_bussiness Feature')
         response = self.mpesa.bussiness_to_bussiness(self.b2b_transaction_query)
-        response_keys = set(response.json().keys())
+        response_keys = set(response.keys())
         self.assertEqual(response_keys, self.expected_output_keys)
 
     def test_payment_reversal(self):
         print('Testing payment Reversal Feature')
         response = self.mpesa.payment_reversal(self.payment_reversal_query)
-        response_keys = set(response.json().keys())
+        response_keys = set(response.keys())
         self.assertEqual(response_keys, self.expected_output_keys)
         print('Finished testing Payment reversal')
 
     def test_query_transaction_status(self):
         print('Testing query transaction status Feature')
         response = self.mpesa.query_transaction_status(self.transaction_status_query)
-        response_keys = set(response.json().keys())
-        self.assertEqual(response_keys, self.expected_output_keys)
+        response_keys = set(response.keys())
+        self.assertEqual(response_keys, self.query_output_keys)
         print('Finished Testing transaction status Feature')
 
 
